@@ -1,2 +1,36 @@
-# CS50x
-A collection of my submissions and work for the CS50x - Introduction to Computer Science (2025).
+# MANDELBROT AND JULIA SETS VISUALIZER
+#### Video Demo: [https://youtu.be/dx1ulnUB34k](https://youtu.be/dx1ulnUB34k)
+#### Description:
+This Fractal Explorer is an immersive Python application that transforms abstract mathematical concepts into captivating visual experiences. By harnessing the computational power of complex plane mathematics and Pygame's rendering capabilities, this tool allows users to dynamically explore the infinitely intricate patterns of Mandelbrot and Julia sets. Unlike static fractal images, this implementation responds in real-time to user interactions, enabling hands-on discovery of fractal geometry's mesmerizing complexity. The project also demonstrates how elegant mathematical principles can yield breathtaking visual complexity through efficient computational implementation.
+
+### Comprehensive Implementation Architecture
+The entire application is consolidated into a single, well-organized Python file (`FinalProject.py`) reaching 196 lines in total. This intentional design choice prioritizes accessibility and clarity, allowing users to immediately execute the program with minimal dependencies (Pygame and NumPy) while maintaining a comprehensive educational resource where all components are visible within one cohesive structure.
+
+**1. Initialization and Mathematical Core (Lines 1-66)**  
+The foundation begins with Pygame initialization and display configuration, establishing the visual canvas for fractal exploration. Crucially, it defines the mathematical parameters governing fractal behavior: the escape radius (fixed at 2.0, proven mathematically sufficient for Mandelbrot convergence checks), zoom factors with logarithmic scaling, and coordinate system boundaries that map screen pixels to the complex plane. The dynamically generated color palette employs three phase-shifted sine waves (RGB channels) to create organic, non-repeating gradients. The `compute_pixel()` function serves as the computational engine, translating each pixel's coordinates into complex numbers and calculating escape iterations through optimized NumPy operations. This function intelligently handles both Mandelbrot calculations (where C derives from pixel position) and Julia sets (where C remains constant while Z₀ varies with pixel position), with early termination when |Z| exceeds the escape radius for performance efficiency.
+
+**2. Rendering and Visualization System (Lines 37-66)**  
+The `render_fractal()` function transforms mathematical results into visual artistry. It efficiently maps iteration counts to precomputed palette colors using NumPy's vectorized operations, converting the data array into a Pygame surface. The palette generation deserves special attention: after experimenting with linear gradients and HSV interpolation, we implemented trigonometric color mixing for superior visual fluidity. By shifting RGB phases at different frequencies, we avoid artificial banding artifacts while maintaining computational efficiency. Points within the fractal set (reaching MAX_ITER) render as profound black, creating the iconic silhouette against vibrant iteration maps.
+
+**3. Interactive Interface Framework (Lines 68-191)**  
+The user experience centers on responsive controls and contextual information. The event loop processes mouse and keyboard inputs for: logarithmic zooming centered at cursor position (mouse wheel), intuitive panning via click-and-drag, and seamless toggling between Mandelbrot and Julia modes. When exploring Julia sets, users can dynamically modify the complex constant C using arrow keys, witnessing immediate fractal transformations. The interface also allows on-the-fly adjustment of iteration depth (PageUp/PageDown) and instant palette regeneration (spacebar). The `draw_ui()` function overlays essential contextual information—current mode, coordinates, iteration count, and Julia parameters—using non-intrusive corner positioning that maintains immersion while providing critical navigation feedback.
+
+**4. Main Loop and State Management (Lines 193-end)**  
+The execution loop orchestrates the interactive experience, maintaining viewport state during navigation. Through careful state tracking, it minimizes unnecessary re-renders by updating only when parameters change. The coordinate transformation system dynamically recalculates complex plane boundaries during zoom/pan operations, maintaining mathematical precision through proportional adjustments based on pixel displacement. This ensures intuitive navigation where mouse movements correspond directly to mathematical translations in the complex plane.
+
+### Deliberate Design and Tradeoffs
+
+**Performance Optimization Strategy**  
+Balancing mathematical precision with real-time interactivity required thoughtful compromises. While GPU acceleration could achieve higher resolutions, we prioritized accessibility using CPU-based NumPy vectorization. Selective re-rendering prevents recalculating static views, while adjustable MAX_ITER (default 100) lets users balance visual detail against computational load. These choices enable smooth exploration on standard hardware, though extreme zooms beyond 10¹⁵ reveal floating-point limitations—an acceptable tradeoff given Pygame's performance characteristics.
+
+**Coordinate System Precision**  
+The complex-plane/pixel coordinate mapping presented significant challenges. The solution dynamically tracks viewport boundaries (x_min/x_max/y_min/y_max) and recalculates them proportionally during zoom operations. When zooming toward the cursor, it computes the cursor's complex position first, then adjusts boundaries relative to this anchor point. This maintains visual consistency where the cursor remains centered on the same mathematical point throughout zoom transitions.
+
+**Color Representation Evolution**  
+Early implementations used linear gradients that produced visible banding artifacts. We experimented with HSV interpolation but encountered unnatural hue jumps. The final trigonometric approach—generating colors via `(sin(frequency*i + phase) * 127 + 128)` per RGB channel—creates organic, continuously shifting gradients. By fixing palette size (256 colors) and recycling through iteration counts via modulo operations, we avoid expensive per-pixel color calculations while maintaining visual richness.
+
+**Interaction Design**  
+The control scheme underwent multiple iterations to balance power with discoverability. We rejected touch gestures to maintain cross-platform consistency, focusing instead on universal keyboard/mouse interactions. Context-sensitive controls (e.g., disabling Julia parameter adjustments in Mandelbrot mode) prevent accidental mode errors. This interface provides immediate visual feedback for every action, creating a tactile exploration experience where mathematical relationships become intuitively understandable through manipulation.
+
+**Mathematical Fidelity Considerations**  
+We maintained mathematical rigor where possible while acknowledging practical constraints. The escape radius of 2.0 follows established mathematical proof for Mandelbrot convergence. Python's native floats were chosen over arbitrary-precision decimals for performance, accepting that quantum zoom levels would eventually exhibit artifacts. MAX_ITER serves as a quality dial—users can increase it for deeper zooms at render-speed cost, creating a natural decision point in the exploration process.
