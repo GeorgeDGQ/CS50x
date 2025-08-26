@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block main %}
+    <h1 class="mb-4">Your Portfolio</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Cash Balance: {{ cash | usd }}</h5>
+            <h5 class="card-title">Total Value: {{ grand_total | usd }}</h5>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                    <tr>
+                        <td>{{ stock.symbol }}</td>
+                        <td>{{ stock.name }}</td>
+                        <td>{{ stock.shares }}</td>
+                        <td>{{ stock.price | usd }}</td>
+                        <td>{{ stock.total | usd }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

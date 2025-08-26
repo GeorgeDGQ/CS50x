@@ -1,0 +1,34 @@
+Jorge Daniel Gómez Quintana "Homepage"
+
+HTML Tags Used (10 distinct):
+1. <nav> - Navigation bar
+2. <section> - Content sections
+3. <article> - Self-contained content
+4. <footer> - Page footer
+5. <table> - Services pricing table
+6. <form> - Contact form and newsletter
+7. <button> - Interactive buttons
+8. <img> - Images in content
+9. <blockquote> - Client testimonials
+10. <abbr> - Abbreviations in contact info
+
+CSS Properties Used (5 different):
+1. transition - Card hover effects
+2. box-shadow - Card and form element styling
+3. linear-gradient - Header background
+4. transform - Card hover animation
+5. @media - Responsive design adjustments
+
+JavaScript Usage:
+Added interactive elements including:
+- Alert messages for service buttons
+- Form submission handling with validation
+- Dark mode toggle functionality
+- Accordion component for service packages (using Bootstrap)
+
+Bootstrap Features:
+- Responsive navbar with collapse
+- Card components for services
+- Grid system for responsive layouts
+- Form styling and validation
+- Accordion for service packages

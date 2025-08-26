@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Birthday Tracker</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            form {
+                margin-bottom: 20px;
+                display: inline;
+            }
+
+            input {
+                margin: 5px;
+            }
+
+            button {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Birthday Tracker</h1>
+
+        <form action="/" method="post">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="number" name="month" placeholder="Month" min="1" max="12" required>
+            <input type="number" name="day" placeholder="Day" min="1" max="31" required>
+            <button type="submit">Add Birthday</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in birthdays %}
+                    <tr>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.month }}/{{ person.day }}</td>
+                        <td>
+                            <form action="/delete/{{ person.id }}" method="post">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+
+</html>
