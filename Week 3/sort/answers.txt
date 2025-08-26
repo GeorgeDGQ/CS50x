@@ -1,0 +1,11 @@
+sort1 uses: Bubble sort
+
+How do you know?: Because it takes less time for a sorted list, and more time for a random list
+
+sort2 uses: Merge sort
+
+How do you know?: Beacause it takes about the same time for sorted and random lists (less than sort3)
+
+sort3 uses: Selection port
+
+How do you know?: Because it takes about the same time for sorted and random lists (more than sort2)
